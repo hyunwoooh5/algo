@@ -1,1 +1,1 @@
-# algo
+# Solution for algorithm problems
