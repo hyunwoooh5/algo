@@ -8,6 +8,6 @@ class Solution(object):
         for i in range(len(digits)):
             num += int(digits[-i-1])*(10**i)
 
-        num +=1
+        num += 1
 
         return [int(i) for i in str(num)]

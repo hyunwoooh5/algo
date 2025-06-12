@@ -4,7 +4,7 @@ class Solution(object):
         :type head: Optional[ListNode]
         :rtype: Optional[ListNode]
         """
-        ans=[]
+        ans = []
         ans.append(head[0])
         for i in range(len(head)-1):
             if head[i] != head[i+1]:
@@ -18,7 +18,7 @@ class Solution(object):
 #         self.val = val
 #         self.next = next
 
-## ListNode
+# ListNode
 class Solution:
     def deleteDuplicates(self, head):
         current = head

@@ -5,19 +5,19 @@ class Solution(object):
         :rtype: int
         """
 
-        if x< 2:
+        if x < 2:
             return x
-        
+
         # Binary search
         left, right = 1, x//2
-        
-        while left<=right:
+
+        while left <= right:
             mid = (left+right)//2
-            if mid* mid ==x:
+            if mid * mid == x:
                 return mid
             elif mid*mid < x:
                 left = mid+1
             else:
-                right=mid-1
-        
+                right = mid-1
+
         return right
