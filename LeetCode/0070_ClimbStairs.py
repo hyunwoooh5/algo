@@ -16,3 +16,4 @@ class Solution(object):
             a, b = b, a+b
 
         return b
+
