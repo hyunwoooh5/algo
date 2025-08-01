@@ -17,3 +17,20 @@ class Solution(object):
 
         return b
 
+
+# Dynamic Programming
+class Solution(object):
+    def climbStairs(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        dp = [0]*(n+1)
+        dp[0] = 1
+
+        for i in range(1, n+1):
+            for k in 1, 2:
+                if i >= k:
+                    dp[i] += dp[i-k]
+
+        return dp[n]
