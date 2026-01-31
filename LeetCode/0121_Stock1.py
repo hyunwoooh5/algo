@@ -21,3 +21,18 @@ class Solution(object):
                 if price > ans:
                     ans = price
         return ans
+
+
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        ans = 0
+        min_price = prices[0]
+        for price in prices[1:]:
+            if price > min_price:
+                if price - min_price > ans:
+                    ans = price - min_price
+            else:
+                if min_price > price:
+                    min_price = price
+        
+        return ans
