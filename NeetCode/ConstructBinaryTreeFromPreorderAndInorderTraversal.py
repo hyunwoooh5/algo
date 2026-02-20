@@ -21,9 +21,9 @@ class Solution:
 
             mid = idx_map[root_val]
 
-            root.left = f(left, mid - 1)
-            root.right = f(mid+1, right)
+            root.left = dfs(left, mid - 1)
+            root.right = dfs(mid+1, right)
 
             return root
 
-        return f(0, len(inorder)-1)
+        return dfs(0, len(inorder)-1)
