@@ -26,3 +26,22 @@ class Solution:
         traverse(root)
 
         return count[1]
+
+
+class Solution:
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        count = [0, None]
+
+        def inorder(node):
+            if not node:
+                return
+
+            inorder(node.left)
+            if count[0] < k:
+                count[1] = node.val
+                count[0] += 1
+            inorder(node.right)
+
+        inorder(root)
+
+        return count[1]
