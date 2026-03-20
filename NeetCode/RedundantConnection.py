@@ -20,6 +20,7 @@ class Solution:
                 return True
             return False
 
+        # Try to union
         for u, v in edges:
-            if not union(u, v):
+            if not union(u, v): # If u!=v, then pass
                 return [u, v]
