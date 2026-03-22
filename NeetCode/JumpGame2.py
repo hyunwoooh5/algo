@@ -27,3 +27,25 @@ class Solution:
             r = farthest
             res += 1
         return res
+
+
+class Solution:
+    def jump(self, nums: List[int]) -> int:
+        if len(nums) <= 1:
+            return 0
+
+        ans = 0
+        curr = 0
+        far = 0
+
+        for i in range(len(nums)-1):
+            far = max(far, i+nums[i])
+
+            if i == curr:
+                ans += 1
+                curr = far
+
+                if curr >= len(nums)-1:
+                    break
+
+        return ans
