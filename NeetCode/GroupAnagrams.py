@@ -18,3 +18,26 @@ class Solution:
             result.append(r)
 
         return result
+
+
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        ans = []
+        hash_table = {}
+
+        for word in strs:
+            key = [0]*26
+            for char in word:
+                key[ord(char)-ord('a')] += 1
+
+            key = tuple(key)
+
+            if key in hash_table:
+                hash_table[key].append(word)
+            else:
+                hash_table[key] = [word]
+
+        for _, value in hash_table.items():
+            ans.append(value)
+
+        return ans
