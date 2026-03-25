@@ -102,3 +102,50 @@ class Solution:
 
         dfs(root, 0)
         return ans
+
+
+class Solution:
+    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        if not root:
+            return []
+        ans = []
+
+        from collections import deque
+        queue = deque([root])
+
+        while queue:
+            temp = []
+            length = len(queue)
+
+            for _ in range(length):
+                node = queue.popleft()
+                temp.append(node.val)
+
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+
+            ans.append(temp)
+
+        return ans
+
+
+class Solution:
+    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        ans = []
+
+        def dfs(node, depth):
+            if not node:
+                return None
+
+            if len(ans) == depth:  # add a new layer if it is the first visit of the depth
+                ans.append([])
+
+            ans[depth].append(node.val)
+
+            dfs(node.left, depth+1)
+            dfs(node.right, depth+1)
+
+        dfs(root, 0)
+        return ans

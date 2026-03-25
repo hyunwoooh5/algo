@@ -52,3 +52,29 @@ class Solution:
         backtrack([], [0, 0])
 
         return res
+
+
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        ans = []
+
+        def backtrack(op, cl, path):
+            if op < cl:
+                return
+            if op > n or cl > n:
+                return
+            if op == n and cl == n:
+                ans.append("".join(path))
+                return
+
+            path.append("(")
+            backtrack(op+1, cl, path)
+            path.pop()
+
+            path.append(")")
+            backtrack(op, cl+1, path)
+            path.pop()
+
+        backtrack(0, 0, [])
+
+        return ans

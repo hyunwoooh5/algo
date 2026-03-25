@@ -49,16 +49,57 @@ class Solution:
         n = len(nums)
 
         def backtrack(i, path):
-            if i>=n:
+            if i >= n:
                 ans.append(list(path))
                 return
 
             path.append(nums[i])
             backtrack(i+1, path)
-            
+
             path.pop()
             backtrack(i+1, path)
 
-        backtrack(0, [])        
+        backtrack(0, [])
 
+        return ans
+
+
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        ans = []
+
+        n = len(nums)
+
+        def backtrack(i, path):
+            if i == n:
+                ans.append(list(path))
+                return None
+
+            # include
+            path.append(nums[i])
+            backtrack(i+1, path)
+
+            # exclude
+            path.pop()
+            backtrack(i+1, path)
+
+        backtrack(0, [])
+        return ans
+
+
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        ans = []
+
+        n = len(nums)
+
+        def backtrack(start, path):
+            ans.append(list(path))  # add intermediate
+
+            for i in range(start, n):
+                path.append(nums[i])
+                backtrack(i+1, path)
+                path.pop()
+
+        backtrack(0, [])
         return ans

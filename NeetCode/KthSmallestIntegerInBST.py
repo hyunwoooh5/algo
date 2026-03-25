@@ -45,3 +45,21 @@ class Solution:
         inorder(root)
 
         return count[1]
+
+
+class Solution:
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        ans = [0, None]
+
+        def dfs(node):
+            if not node:
+                return None
+
+            dfs(node.left)
+            if ans[0] < k:
+                ans[1] = node.val
+                ans[0] +=1
+            dfs(node.right)
+
+        dfs(root)
+        return ans[1]

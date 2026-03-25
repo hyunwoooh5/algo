@@ -48,3 +48,50 @@ class Solution:
                 q.append((node.right, maxval))
 
         return res
+
+
+class Solution:
+    def goodNodes(self, root: TreeNode) -> int:
+        self.ans = 0
+
+        def dfs(node, maximum):
+            if not node:
+                return
+
+            # if this is not a good node
+            if node.val < maximum:
+                dfs(node.left, maximum)
+                dfs(node.right, maximum)
+                return
+            # if this is a good node
+            else:
+                self.ans += 1
+                dfs(node.left, node.val)
+                dfs(node.right, node.val)
+
+        dfs(root, -101)
+
+        return self.ans
+
+
+class Solution:
+    def goodNodes(self, root: TreeNode) -> int:
+        ans = 0
+
+        from collections import deque
+
+        queue = deque([(root, -float("inf"))])
+
+        while queue:
+            node, maxval = queue.popleft()
+
+            if node.val >= maxval:
+                ans += 1
+                maxval = node.val
+            if node.left:
+                queue.append((node.left, maxval))
+
+            if node.right:
+                queue.append((node.right, maxval))
+
+        return ans

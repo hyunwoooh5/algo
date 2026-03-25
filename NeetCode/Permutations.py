@@ -62,25 +62,31 @@ class Solution:
 
         backtrack(0)
         return res
+
+
 class Solution:
-    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
-        res = [[]]
-        
-        nums.sort()
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        ans = []
 
-        n=len(nums)
+        n = len(nums)
 
-        def backtrack(start, path):
-            for i in range(start, n):
-                if nums[i]==nums[i-1] and i>start:
+        used = [False]*n
+
+        def backtrack(used, path):
+            if len(path) == n:
+                ans.append(list(path))
+                return
+
+            for i in range(n):
+                if used[i]:
                     continue
-                
-                path.append(nums[i])
-                res.append(list(path))
-                backtrack(i+1, path)
-                path.pop()
-            
+                else:
+                    path.append(nums[i])
+                    used[i] = True
+                    backtrack(used, path)
 
-        backtrack(0, [])
+                    path.pop()
+                    used[i] = False
 
-        return res
+        backtrack(used, [])
+        return ans

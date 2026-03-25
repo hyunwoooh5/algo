@@ -98,3 +98,45 @@ class Solution:
 
         dfs(root, 0)
         return ans
+
+
+class Solution:
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        if not root:
+            return []
+
+        ans = []
+
+        from collections import deque
+        queue = deque([root])
+
+        while queue:
+            length = len(queue)
+            for _ in range(length):
+                node = queue.popleft()
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+
+            ans.append(node.val)
+
+        return ans
+
+
+class Solution:
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        ans = []
+
+        def dfs(node, depth):
+            if not node:
+                return None
+
+            if len(ans) == depth:  # first case
+                ans.append(node.val)
+
+            dfs(node.right, depth+1)  # right first
+            dfs(node.left, depth+1)
+
+        dfs(root, 0)
+        return ans
