@@ -30,3 +30,38 @@ class TimeMap:
                 return l[mid][0]
 
         return res
+
+
+class TimeMap:
+
+    def __init__(self):
+        self.d = {}
+
+    def set(self, key: str, value: str, timestamp: int) -> None:
+        if key in self.d:
+            self.d[key].append([value, timestamp])
+        else:
+            self.d[key] = [[value, timestamp]]
+
+    def get(self, key: str, timestamp: int) -> str:
+        if key not in self.d:
+            return ""
+
+        values = self.d[key]
+
+        left, right = 0, len(values)-1
+
+        ans = ""
+
+        while left <= right:
+            mid = left + (right-left)//2
+
+            if values[mid][1] > timestamp:
+                right = mid - 1
+            elif values[mid][1] < timestamp:
+                ans = values[mid][0]
+                left = mid + 1
+            else:
+                return values[mid][0]
+
+        return ans

@@ -12,7 +12,6 @@ class Solution:
         if root is None:
             return root
 
-        
         root.left, root.right = root.right, root.left
         self.invertTree(root.left)
         self.invertTree(root.right)
@@ -35,9 +34,8 @@ class Solution:
             if node.right:
                 queue.append(node.right)
 
-
         return root
-    
+
 
 # DFS with explicit stack
 class Solution:
@@ -56,5 +54,46 @@ class Solution:
             if node.right:
                 stack.append(node.right)
 
+        return root
+
+
+class Solution:
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root:
+            return root
+
+        from collections import deque
+
+        queue = deque([root])
+
+        while queue:
+            node = queue.popleft()
+
+            if node.left and node.right:
+
+                node.left, node.right = node.right, node.left
+                queue.append(node.left)
+                queue.append(node.right)
+
+            elif node.left:
+                node.left, node.right = None, node.left
+                queue.append(node.right)
+
+            elif node.right:
+                node.left, node.right = node.right, None
+                queue.append(node.left)
+
+        return root
+
+
+class Solution:
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root:
+            return root
+
+        root.left, root.right = root.right, root.left
+
+        self.invertTree(root.left)
+        self.invertTree(root.right)
 
         return root
