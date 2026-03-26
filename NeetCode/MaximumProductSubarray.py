@@ -25,3 +25,18 @@ class Solution:
             res = max(curr_max, res)
 
         return res
+
+
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+        curr_max, curr_min = 1, 1
+
+        ans = nums[0]
+
+        for num in nums:
+            curr_max, curr_min = max(curr_max*num, curr_min*num, num), min(curr_max*num, curr_min*num, num)
+
+            ans = max(ans, curr_max)
+
+        return ans
+        
