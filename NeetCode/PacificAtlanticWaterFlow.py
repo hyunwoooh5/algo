@@ -32,3 +32,37 @@ class Solution:
                     ans.append([r, c])
 
         return ans
+
+
+class Solution:
+    def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
+        m, n = len(heights), len(heights[0])
+
+        pacific = set()
+        atlantic = set()
+
+        # go up from edge
+        def dfs(r, c, reachable, prev_height):
+            if r < 0 or r >= m or c < 0 or c >= n or (r, c) in reachable or heights[r][c] < prev_height:
+                return
+
+            reachable.add((r, c))
+
+            for dr, dc in [[0, 1], [-1, 0], [1, 0], [0, -1]]:
+                dfs(r+dr, c+dc, reachable, heights[r][c])
+
+        for r in range(m):
+            dfs(r, 0, pacific, heights[r][0])
+            dfs(r, n-1, atlantic, heights[r][n-1])
+
+        for c in range(n):
+            dfs(0, c, pacific, heights[0][c])
+            dfs(m-1, c, atlantic, heights[m-1][c])
+
+        ans = []
+        for r in range(m):
+            for c in range(n):
+                if (r, c) in pacific and (r, c) in atlantic:
+                    ans.append([r, c])
+
+        return ans

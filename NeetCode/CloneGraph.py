@@ -68,15 +68,6 @@ class Solution:
         return dfs(node)
 
 
-"""
-# Definition for a Node.
-class Node:
-    def __init__(self, val = 0, neighbors = None):
-        self.val = val
-        self.neighbors = neighbors if neighbors is not None else []
-"""
-
-
 class Solution:
     def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
         if not node:
@@ -97,5 +88,52 @@ class Solution:
                     old_to_new[n] = Node(n.val)
                     queue.append(n)
                 old_to_new[curr].neighbors.append(old_to_new[n])
+
+        return old_to_new[node]
+
+
+class Solution:
+    def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
+        if not node:
+            return
+
+        old_to_new = {}
+
+        def dfs(current_node):
+            if current_node in old_to_new:
+                return old_to_new[current_node]
+
+            copy = Node(current_node.val)
+            old_to_new[current_node] = copy
+
+            for neighbor in current_node.neighbors:
+                copy.neighbors.append(dfs(neighbor))
+
+            return copy
+
+        return dfs(node)
+
+
+class Solution:
+    def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
+        if not node:
+            return
+
+        old_to_new = {}
+
+        old_to_new[node] = Node(node.val)
+
+        from collections import deque
+
+        q = deque([node])
+
+        while q:
+            curr = q.popleft()
+
+            for neighbor in curr.neighbors:
+                if neighbor not in old_to_new:
+                    old_to_new[neighbor] = Node(neighbor.val)
+                    q.append(neighbor)
+                old_to_new[curr].neighbors.append(old_to_new[neighbor])
 
         return old_to_new[node]
