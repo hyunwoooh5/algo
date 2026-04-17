@@ -67,7 +67,6 @@ class Solution:
         return ans[::-1] if is_possible else []
 
 
-
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
         indegree = [0]*numCourses
@@ -83,15 +82,51 @@ class Solution:
 
         def dfs(node):
             ans.append(node)
-            indegree[node] -=1
+            indegree[node] -= 1
 
             for neighbor in adj[node]:
-                indegree[neighbor] -=1
+                indegree[neighbor] -= 1
                 if indegree[neighbor] == 0:
                     dfs(neighbor)
 
         for i in range(numCourses):
-            if indegree[i]==0:
+            if indegree[i] == 0:
                 dfs(i)
 
         return ans if len(ans) == numCourses else []
+
+
+class Solution:
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        adj_list = [[] for _ in range(numCourses)]
+
+        for course, pre in prerequisites:
+            adj_list[pre].append(course)
+
+        visit = [0]*numCourses
+
+        ans = []
+
+        def dfs(curr):
+            if visit[curr] == 1:
+                return True
+            if visit[curr] == 2:
+                return False
+
+            visit[curr] = 1
+
+            for course in adj_list[curr]:
+                if dfs(course):
+                    return True
+
+            visit[curr] = 2
+
+            ans.append(curr)
+
+            return False
+
+        for i in range(numCourses):
+            if dfs(i):
+                return []
+
+        return ans[::-1]

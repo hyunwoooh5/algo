@@ -92,3 +92,37 @@ class Solution:
                     q.append(neighbor)
 
         return finish == numCourses
+
+
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        adj_list = [[] for _ in range(numCourses)]
+
+        for course, pre in prerequisites:
+            adj_list[pre].append(course)
+
+        visit = [0]*numCourses
+
+        def dfs(curr):
+            # visited => cycle
+            if visit[curr] == 1:
+                return True
+
+            # Processed
+            if visit[curr] == 2:
+                return False
+
+            visit[curr] = 1
+
+            for course in adj_list[curr]:
+                if dfs(course):
+                    return True
+
+            visit[curr] = 2
+            return False
+
+        for i in range(numCourses):
+            if dfs(i):
+                return False
+
+        return True
