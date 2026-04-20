@@ -15,3 +15,18 @@ class Solution:
                 ans[-1] = [new_a, new_b]
 
         return ans
+
+
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        intervals.sort(key=lambda x: x[0])
+
+        ans = [intervals[0]]
+
+        for left, right in intervals[1:]:
+            if left <= ans[-1][1]:
+                ans[-1][1] = max(ans[-1][1], right)
+            else:
+                ans.append([left, right])
+
+        return ans

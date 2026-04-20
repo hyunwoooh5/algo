@@ -40,7 +40,7 @@ class Solution:
         intervals.sort(key=lambda x: x.start)
 
         import heapq
-        
+
         rooms = []
 
         heapq.heappush(rooms, intervals[0].end)
@@ -50,5 +50,29 @@ class Solution:
                 heapq.heappop(rooms)
 
             heapq.heappush(rooms, intervals[i].end)
+
+        return len(rooms)
+
+
+class Solution:
+    def minMeetingRooms(self, intervals: List[Interval]) -> int:
+        if not intervals:
+            return 0
+
+        intervals.sort(key=lambda x: x.start)
+
+        rooms = [intervals[0]]
+
+        for interval in intervals[1:]:
+            done = False
+            for i in range(len(rooms)):
+                room = rooms[i]
+                if room.end <= interval.start:
+                    rooms[i] = interval
+                    done = True
+                    break
+
+            if not done:
+                rooms.append(interval)
 
         return len(rooms)

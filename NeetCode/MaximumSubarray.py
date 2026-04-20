@@ -7,3 +7,14 @@ class Solution:
             m = max(m, curr)
 
         return m
+
+
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        ans = nums[0]
+        temp = 0
+        for num in nums:
+            temp = max(temp+num, num)
+            ans = max(ans, temp)
+
+        return ans

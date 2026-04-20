@@ -24,3 +24,21 @@ class Solution:
             else:
                 return False
         return True
+
+
+class Solution:
+    def canAttendMeetings(self, intervals: List[Interval]) -> bool:
+        if len(intervals) == 0:
+            return True
+
+        intervals.sort(key=lambda x: x.start)
+
+        curr = intervals[0]
+
+        for interval in intervals[1:]:
+            if interval.start < curr.end:
+                return False
+            else:
+                curr = interval
+
+        return True

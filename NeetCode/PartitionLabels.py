@@ -44,3 +44,29 @@ class Solution:
                 ans.append(size)
                 size = 0
         return ans
+
+
+class Solution:
+    def partitionLabels(self, s: str) -> List[int]:
+        hash_table = {}
+
+        for i, char in enumerate(s):
+            if char in hash_table:
+                hash_table[char][1] = i
+            else:
+                hash_table[char] = [i, i]
+
+        intervals = [value for key, value in hash_table.items()]
+
+        ans = [intervals[0]]
+
+        for c, d in intervals[1:]:
+            a, b = ans[-1]
+
+            if b <= c:
+                ans.append([c, d])
+            else:
+                ans[-1][1] = max(b, d)
+
+        return [interval[1]-interval[0]+1 for interval in ans]
+    

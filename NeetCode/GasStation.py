@@ -36,3 +36,40 @@ class Solution:
                 ans = i+1
 
         return ans
+
+
+class Solution:
+    def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
+        n = len(gas)
+
+        for i in range(n):
+            done = True
+            tank = 0
+            for j in range(n):
+                tank += gas[(i+j) % n]-cost[(i+j) % n]
+                if tank < 0:
+                    done = False
+                    break
+
+            if done:
+                return i
+
+        return -1
+
+
+class Solution:
+    def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
+        if sum(gas) < sum(cost):
+            return -1
+
+        total = 0
+        res = 0
+
+        for i in range(len(gas)):
+            total += gas[i] - cost[i]
+
+            if total < 0:
+                total = 0
+                res = i+1
+
+        return res

@@ -42,3 +42,17 @@ class Solution:
                 ans[original_idx] = min_heap[0][0]
 
         return ans
+
+
+class Solution:
+    def minInterval(self, intervals: List[List[int]], queries: List[int]) -> List[int]:
+        ans = [20000]*len(queries)
+        for i, query in enumerate(queries):
+            for left, right in intervals:
+                if left <= query <= right:
+                    ans[i] = min(ans[i], right-left+1)
+
+            if ans[i] == 20000:
+                ans[i] = -1
+
+        return ans
